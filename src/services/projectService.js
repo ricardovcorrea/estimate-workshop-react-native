@@ -20,7 +20,7 @@ export const getProjects = () => {
                 {
                     id: 4,
                     name: "Projeto 04",
-                    description: "Descrição projeto 4"
+                    description: "Descrição projeto 4.5"
                 },
                 {
                     id: 5,
