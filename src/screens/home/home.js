@@ -8,13 +8,14 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { getProjects } from '../../services/projectService';
 
 import ProjectCardComponent from '../../components/projectCardComponent';
+import GasStationCardComponent from '../../components/GasStationCardComponent';
 
 export default class Home extends Component {
 
   static navigationOptions = ({ navigate, navigation }) => ({
-    headerRight: (
-      <TouchableOpacity onPress={() => { navigation.getParam('openProjectScreen')() }}>
-        <MaterialIcons name={"add"} style={styles.btnNewProject} size={30} />
+    headerLeft: (
+      <TouchableOpacity onPress={() => { navigation.openDrawer() }}>
+        <MaterialIcons name={"menu"} style={styles.btnMenu} size={30} />
       </TouchableOpacity>
     )
   });
@@ -26,12 +27,9 @@ export default class Home extends Component {
       isLoading: false,
       projects: []
     };
-
-    this.handleBtnNewProjectClick = this.handleBtnNewProjectClick.bind(this);
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({ openProjectScreen: this.handleBtnNewProjectClick });
     this.getProjectsFromService();
   }
 
@@ -41,17 +39,17 @@ export default class Home extends Component {
     this.setState({ projects: projects, isLoading: false });
   }
 
-  handleBtnNewProjectClick(projectInfo) {
-    this.openProjectScreen(projectInfo);
-  }
-
-  openProjectScreen(projectInfo) {
-    this.props.navigation.navigate('Project', { projectInfo: projectInfo });
-  }
-
   onPullToRefresh() {
     this.setState({ projects: [] });
     this.getProjectsFromService();
+  }
+
+  handleCardGasStationCardClick(model) {
+    this.openGasStationDetailsScreen(model);
+  }
+
+  openGasStationDetailsScreen(model) {
+    this.props.navigation.navigate('GasStation', { model: model });
   }
 
   render() {
@@ -61,7 +59,8 @@ export default class Home extends Component {
           style={{ flex: 1 }}
           data={this.state.projects}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={(item) => <ProjectCardComponent onPress={this.handleBtnNewProjectClick} project={item.item} />}
+          renderItem={(item) => <GasStationCardComponent onPress={() => { this.handleCardGasStationCardClick(item.item) }} model={item.item} />}
+          contentContainerStyle={{ paddingBottom: 30 }}
           refreshControl={
             <RefreshControl
               refreshing={this.state.isLoading}

@@ -1,18 +1,18 @@
 
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation';
 
-import { Home, Project } from '../screens';
+import { Home, GasStation } from '../screens';
 
 import theme from '../utils/theme';
 
 const mainStack = createStackNavigator(
     {
         Home: { screen: Home },
-        Project: { screen: Project }
+        GasStation: { screen: GasStation }
     },
     {
         defaultNavigationOptions: {
-            headerTitle: 'Estimate',
+            headerTitle: 'iGAS',
             headerStyle: {
                 backgroundColor: theme.primary,
             },
@@ -24,4 +24,8 @@ const mainStack = createStackNavigator(
     }
 );
 
-export default AppNavigator = createAppContainer(mainStack);
+const drawerStack = createDrawerNavigator({
+    Main: { screen: mainStack }
+})
+
+export default AppNavigator = createAppContainer(drawerStack);

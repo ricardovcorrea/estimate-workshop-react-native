@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor:'#e3e3e3'
     },
+    btnMenu: {
+        marginLeft: 25,
+        color: theme.secondary
+    },
     btnNewProject: {
         marginRight: 25,
         color: theme.secondary
